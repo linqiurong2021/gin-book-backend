@@ -3,10 +3,46 @@ package controller
 import (
 	"net/http"
 
-	"github.com/gin-gonic/gin"
 	"github.com/linqiurong2021/gin-book-backend/logic"
 	"github.com/linqiurong2021/gin-book-frontend/utils"
+
+	"github.com/gin-gonic/gin"
 )
+
+// CreateAdmin 新增用户
+func CreateAdmin(c *gin.Context) {
+	ok, err := logic.CreateAdmin(c)
+	if !ok {
+		if err != nil {
+			c.JSON(http.StatusAccepted, utils.CreateFailure(err.Error(), ""))
+			return
+		}
+		return
+	}
+}
+
+// UpdateAdmin 更新
+func UpdateAdmin(c *gin.Context) {
+	ok, err := logic.UpdateAdmin(c)
+	if !ok {
+		if err != nil {
+			c.JSON(http.StatusBadRequest, utils.BadRequest(err.Error(), ""))
+			return
+		}
+		return
+	}
+}
+
+// DeleteAdmin 删除
+func DeleteAdmin(c *gin.Context) {
+	c.JSON(http.StatusOK, utils.Success("Delete success", ""))
+}
+
+// ListAdminByPage 列表分页
+func ListAdminByPage(c *gin.Context) {
+	logic.ListAdminByPage(c)
+	return
+}
 
 // Login 登录
 func Login(c *gin.Context) {
@@ -20,24 +56,4 @@ func Login(c *gin.Context) {
 // Logout 退出登录
 func Logout(c *gin.Context) {
 	logic.Logout(c)
-}
-
-// CreateAdmin 创建管理员
-func CreateAdmin(c *gin.Context) {
-
-}
-
-// UpdateAdmin 更新管理员
-func UpdateAdmin(c *gin.Context) {
-
-}
-
-// DeleteAdmin 删除管理员
-func DeleteAdmin(c *gin.Context) {
-
-}
-
-// ListAdminByPage 管理员分页
-func ListAdminByPage(c *gin.Context) {
-
 }

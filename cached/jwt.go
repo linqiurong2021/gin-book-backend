@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/linqiurong2021/gin-book-backend/config"
-	"github.com/linqiurong2021/gin-book-frontend/models"
+	"github.com/linqiurong2021/gin-book-backend/models"
+	"github.com/linqiurong2021/gin-book-frontend/config"
 
 	"github.com/dgrijalva/jwt-go"
 )

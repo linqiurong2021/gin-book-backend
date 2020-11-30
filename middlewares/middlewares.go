@@ -1,10 +1,11 @@
 package middlewares
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/linqiurong2021/gin-book-frontend/cached"
+	"github.com/linqiurong2021/gin-book-backend/cached"
 	"github.com/linqiurong2021/gin-book-frontend/utils"
 )
 
@@ -19,12 +20,14 @@ func JWTAdminTokenCheck() gin.HandlerFunc {
 			return
 		}
 		jwtToken, err := cached.Parse(token)
+
 		if err != nil {
 			c.JSON(http.StatusBadRequest, utils.BadRequest(err.Error(), ""))
 			c.Abort()
 			return
 		}
 		cliams, ok := cached.Check(jwtToken)
+		fmt.Printf("%+v #### %s", cliams,"#####")
 		if ok && jwtToken.Valid {
 			// 存储当前用户信息
 			cached.Save(cliams)

@@ -57,11 +57,11 @@ func authGroup(version *gin.RouterGroup) {
 	authGroup := version.Group("")
 	authGroup.Use(middlewares.JWTAdminTokenCheck())
 	{
-		userGroup(version)
-		shopGroup(version)
-		cateGroup(version)
-		adminGroup(version)
-		shopUserGroup(version)
+		userGroup(authGroup)
+		shopGroup(authGroup)
+		cateGroup(authGroup)
+		adminGroup(authGroup)
+		shopUserGroup(authGroup)
 	}
 }
 
