@@ -6,6 +6,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/linqiurong2021/gin-book-backend/controller"
 	"github.com/linqiurong2021/gin-book-backend/middlewares"
+	frontendMiddleware "github.com/linqiurong2021/gin-book-frontend/middlewares"
 	"github.com/linqiurong2021/gin-book-frontend/utils"
 )
 
@@ -62,28 +63,35 @@ func authGroup(version *gin.RouterGroup) {
 		cateGroup(authGroup)
 		adminGroup(authGroup)
 		shopUserGroup(authGroup)
+		bookGroup(authGroup)
 	}
 }
 
 // userGroup 用户分组路由
 func userGroup(version *gin.RouterGroup) {
 	user := version.Group("/user")
-	user.GET("", controller.ListUserByPage)
+	user.GET("", frontendMiddleware.Page(), controller.ListUserByPage)
 }
 
 // shopGroup 店铺分组路由
 func shopGroup(version *gin.RouterGroup) {
 	shop := version.Group("/shop")
-	shop.GET("", controller.ListShopByPage)
+	shop.GET("", frontendMiddleware.Page(), controller.ListShopByPage)
 	shop.POST("", controller.CreateShop)
 	shop.PUT("", controller.UpdateShop)
 	shop.DELETE("", controller.DeleteShop)
 }
 
+// bookGroup 店铺分组路由
+func bookGroup(version *gin.RouterGroup) {
+	shop := version.Group("/book")
+	shop.GET("", frontendMiddleware.Page(), controller.ListBookByPage)
+}
+
 // shopUserGroup 分类分组路由
 func shopUserGroup(version *gin.RouterGroup) {
 	shopUser := version.Group("/shop_user")
-	shopUser.GET("", controller.ListShopUserByPage)
+	shopUser.GET("", frontendMiddleware.Page(), controller.ListShopUserByPage)
 	shopUser.POST("", controller.CreateShopUser)
 	shopUser.PUT("", controller.UpdateShopUser)
 	shopUser.DELETE("", controller.DeleteShopUser)
@@ -92,7 +100,7 @@ func shopUserGroup(version *gin.RouterGroup) {
 // cateGroup 分类分组路由
 func cateGroup(version *gin.RouterGroup) {
 	cate := version.Group("/cate")
-	cate.GET("", controller.ListCateByPage)
+	cate.GET("", frontendMiddleware.Page(), controller.ListCateByPage)
 	cate.POST("", controller.CreateCate)
 	cate.PUT("", controller.UpdateCate)
 	cate.DELETE("", controller.DeleteCate)
@@ -101,7 +109,7 @@ func cateGroup(version *gin.RouterGroup) {
 // adminGroup 管理员分组路由
 func adminGroup(version *gin.RouterGroup) {
 	admin := version.Group("/admin")
-	admin.GET("", controller.ListAdminByPage)
+	admin.GET("", frontendMiddleware.Page(), controller.ListAdminByPage)
 	admin.POST("", controller.CreateAdmin)
 	admin.PUT("", controller.UpdateAdmin)
 	admin.DELETE("", controller.DeleteMenu)
