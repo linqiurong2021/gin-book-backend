@@ -100,10 +100,10 @@ func shopUserGroup(version *gin.RouterGroup) {
 // cateGroup 分类分组路由
 func cateGroup(version *gin.RouterGroup) {
 	cate := version.Group("/cate")
-	cate.GET("", frontendMiddleware.Page(), controller.ListCateByPage)
+	cate.GET("/tree", controller.GetListCateTree)
 	cate.POST("", controller.CreateCate)
 	cate.PUT("", controller.UpdateCate)
-	cate.DELETE("", controller.DeleteCate)
+	cate.DELETE("/:id", controller.DeleteCate)
 }
 
 // adminGroup 管理员分组路由

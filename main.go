@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/gin-gonic/gin"
+	"github.com/linqiurong2021/gin-book-backend/models"
 	"github.com/linqiurong2021/gin-book-backend/routers"
 	"github.com/linqiurong2021/gin-book-frontend/config"
 	"github.com/linqiurong2021/gin-book-frontend/mysql"
@@ -38,7 +39,7 @@ func main() {
 		return
 	}
 	// 绑定数据表
-	// mysql.DB.AutoMigrate()
+	mysql.DB.AutoMigrate(&models.Cate{})
 	// 注册路由
 	routers.RegisterRouter(r)
 	r.Run(fmt.Sprintf(":%#v", config.Conf.Port))
